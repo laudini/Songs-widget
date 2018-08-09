@@ -1,6 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styles from '../css/styles.css';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faStroopwafel);
+
+
 
 class App extends React.Component {
     constructor(props) {
@@ -22,7 +29,7 @@ class Container extends React.Component {
             song: ['Duch', 'Despacito', 'Perfect', 'Początek', 'Wolves'],
             singer: ['Kacper HTA ft. Arab', 'Luis Fonsi ft. Daddy Yankee', 'Ed Sheeran', 'Męskie granie', 'Selena Gomez ft. Marchmello'],
             time: ['4:57', '4:41', '4:40', '4:13', '3:17'],
-            currentSong : 'Choose your song!',
+            currentSong : '',
             currentArtist : 'Choose your song!',
             backgroundClasses: ['duch', 'despacito', 'perfect', 'poczatek', 'wolves'],
             activeSongBg: 'default'
@@ -39,21 +46,21 @@ class Container extends React.Component {
 
     render() {
         return (
-            <div id="Main-Container">
+            <div id="MainContainer">
                 <Player>
-                    <div className={this.state.activeSongBg} id="Player-Top">
+                    <div className={this.state.activeSongBg} id="PlayerTop">
                         <PlayerOptions/>
                         <PlayerInfo currentSong={this.state.currentSong} currentArtist={this.state.currentArtist}/>
                     </div>
-                    <div id="Player-Bottom">
+                    <div id="PlayerBottom">
                         <PlayerButtons/>
                     </div>
                 </Player>
                 <Playlist>
-                    <div id="Playlist-Top">
+                    <div id="PlaylistTop">
                         <PlaylistHeader/>
                     </div>
-                    <div id="Playlist-Bottom">
+                    <div id="PlaylistBottom">
                         <PlaylistBody songs={this.state.song} singers={this.state.singer} times={this.state.time} changeSong={this.changeSong}/>
                     </div>
                 </Playlist>
@@ -70,7 +77,7 @@ class Player extends React.Component {
 
     render() {
         return (
-            <div id="Player-Container">
+            <div id="PlayerContainer">
                 {this.props.children}
             </div>
         )
@@ -86,10 +93,11 @@ class PlayerOptions extends React.Component {
     render() {
         return (
             <div id="PlayerOptions">
-                <button>repeat pl</button>
-                <button>shuffle</button>
-                <button>repeat</button>
-                <button>hamburger</button>
+                <button id="redo"></button>
+                <button id="shuffle"></button>
+                <button id="repeat"></button>
+                <button id="hamburger"></button>
+
             </div>
         )
     }
@@ -119,12 +127,12 @@ class PlayerButtons extends React.Component {
 
     render() {
         return (
-            <div>
-                <button>share</button>
-                <button>prev</button>
-                <button>stop</button>
-                <button>next</button>
-                <button>like</button>
+            <div id="PlayerButtons">
+                <button id="share"></button>
+                <button id="previous"></button>
+                <button id="play"></button>
+                <button id="next"></button>
+                <button id="like"></button>
             </div>
         )
     }
@@ -138,7 +146,7 @@ class Playlist extends React.Component {
 
     render() {
         return (
-            <div id="Playlist-Container">
+            <div id="PlaylistContainer">
                 {this.props.children}
             </div>
         )
