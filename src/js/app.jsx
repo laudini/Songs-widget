@@ -21,9 +21,19 @@ class Container extends React.Component {
         this.state = {
             song: ['Duch', 'Despacito', 'Perfect', 'Początek', 'Wolves'],
             singer: ['Kacper HTA ft. Arab', 'Luis Fonsi ft. Daddy Yankee', 'Ed Sheeran', 'Męskie granie', 'Selena Gomez ft. Marchmello'],
-            time: ['4:57', '4:41', '4:40', '4:13', '3:17']
+            time: ['4:57', '4:41', '4:40', '4:13', '3:17'],
+            currentSong : 'Choose your song!',
+            currentArtist : 'Choose your song!'
         }
     }
+
+    changeSong = (e) => {
+      this.setState({
+          currentSong : this.state.song[e.currentTarget.id],
+          currentArtist: this.state.singer[e.currentTarget.id]
+      })
+        console.log(e.currentTarget.id);
+    };
 
     render() {
         return (
@@ -31,7 +41,7 @@ class Container extends React.Component {
                 <Player>
                     <div id="Player-Top">
                         <PlayerOptions/>
-                        <PlayerInfo/>
+                        <PlayerInfo currentSong={this.state.currentSong} currentArtist={this.state.currentArtist}/>
                     </div>
                     <div id="Player-Bottom">
                         <PlayerButtons/>
@@ -42,7 +52,7 @@ class Container extends React.Component {
                         <PlaylistHeader/>
                     </div>
                     <div id="Playlist-Bottom">
-                        <PlaylistBody songs={this.state.song} singers={this.state.singer} times={this.state.time}/>
+                        <PlaylistBody songs={this.state.song} singers={this.state.singer} times={this.state.time} changeSong={this.changeSong}/>
                     </div>
                 </Playlist>
             </div>
@@ -92,8 +102,8 @@ class PlayerInfo extends React.Component {
     render() {
         return (
             <div id="PlayerInfo">
-                <div id="Author">autor</div>
-                <div id="Song">piosenka</div>
+                <div id="Author">{this.props.currentArtist}</div>
+                <div id="Song">{this.props.currentSong}</div>
             </div>
         )
     }
@@ -167,7 +177,7 @@ class PlaylistBody extends React.Component {
                 artists.push(this.props.singers[i]);
                 times.push(this.props.times[i]);
 
-                li.push(<li>
+                li.push(<li id={i} onClick={this.props.changeSong}>
                     <div>
                         <div>{this.props.times[i]}</div>
                         <div>{this.props.singers[i]}</div>

@@ -111,4 +111,5 @@ table {
 #PlayerInfo {
     background: rgba(0, 0, 0, 0.4);
     height: 50px;
+    text-align: center;
 }
