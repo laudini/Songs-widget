@@ -18,6 +18,11 @@ class App extends React.Component {
 class Container extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            song: ['Duch', 'Despacito', 'Perfect', 'Początek', 'Wolves'],
+            singer: ['Kacper HTA ft. Arab', 'Luis Fonsi ft. Daddy Yankee', 'Ed Sheeran', 'Męskie granie', 'Selena Gomez ft. Marchmello'],
+            time: ['4:57', '4:41', '4:40', '4:13', '3:17']
+        }
     }
 
     render() {
@@ -36,8 +41,8 @@ class Container extends React.Component {
                     <div id="Playlist-Top">
                         <PlaylistHeader/>
                     </div>
-                    <div>
-                        <PlaylistBody/>
+                    <div id="Playlist-Bottom">
+                        <PlaylistBody songs={this.state.song} singers={this.state.singer} times={this.state.time}/>
                     </div>
                 </Playlist>
             </div>
@@ -137,7 +142,8 @@ class PlaylistHeader extends React.Component {
     render() {
         return (
             <div id="PlaylistHeader">
-                playlistheader
+                <button id="ReverseHamburger"></button>
+                <div id="PlaylistHeaderTitle">Playlist</div>
             </div>
         )
     }
@@ -150,9 +156,31 @@ class PlaylistBody extends React.Component {
     }
 
     render() {
+
+            let songs = [];
+            let artists = [];
+            let times = [];
+            let li = [];
+
+            for (let i = 0; i < this.props.songs.length; i++) {
+                songs.push(this.props.songs[i]);
+                artists.push(this.props.singers[i]);
+                times.push(this.props.times[i]);
+
+                li.push(<li>
+                    <div>
+                        <div>{this.props.times[i]}</div>
+                        <div>{this.props.singers[i]}</div>
+                    </div>
+                    <div>{this.props.songs[i]}</div>
+                </li>)
+            }
+
         return (
             <div id="PlaylistBody">
-                playlistbody
+                <ul id="SongList">
+                    {li}
+                </ul>
             </div>
         )
     }
