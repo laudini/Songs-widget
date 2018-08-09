@@ -23,23 +23,25 @@ class Container extends React.Component {
             singer: ['Kacper HTA ft. Arab', 'Luis Fonsi ft. Daddy Yankee', 'Ed Sheeran', 'Męskie granie', 'Selena Gomez ft. Marchmello'],
             time: ['4:57', '4:41', '4:40', '4:13', '3:17'],
             currentSong : 'Choose your song!',
-            currentArtist : 'Choose your song!'
+            currentArtist : 'Choose your song!',
+            backgroundClasses: ['duch', 'despacito', 'perfect', 'poczatek', 'wolves'],
+            activeSongBg: 'default'
         }
     }
 
     changeSong = (e) => {
       this.setState({
           currentSong : this.state.song[e.currentTarget.id],
-          currentArtist: this.state.singer[e.currentTarget.id]
-      })
-        console.log(e.currentTarget.id);
+          currentArtist: this.state.singer[e.currentTarget.id],
+          activeSongBg: this.state.backgroundClasses[e.currentTarget.id]
+      });
     };
 
     render() {
         return (
             <div id="Main-Container">
                 <Player>
-                    <div id="Player-Top">
+                    <div className={this.state.activeSongBg} id="Player-Top">
                         <PlayerOptions/>
                         <PlayerInfo currentSong={this.state.currentSong} currentArtist={this.state.currentArtist}/>
                     </div>
@@ -167,15 +169,9 @@ class PlaylistBody extends React.Component {
 
     render() {
 
-            let songs = [];
-            let artists = [];
-            let times = [];
             let li = [];
 
             for (let i = 0; i < this.props.songs.length; i++) {
-                songs.push(this.props.songs[i]);
-                artists.push(this.props.singers[i]);
-                times.push(this.props.times[i]);
 
                 li.push(<li id={i} onClick={this.props.changeSong}>
                     <div>

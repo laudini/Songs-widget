@@ -68,6 +68,8 @@ table {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-size: cover;
+    color: white;
 }
 
 #Player-Bottom {
@@ -104,12 +106,46 @@ table {
 }
 
 #PlayerOptions {
-    background: rgba(0, 0, 0, 0.4);
-    height: 50px;
+    background: rgba(0, 0, 0, 0.7);
+    height: 40px;
 }
 
 #PlayerInfo {
-    background: rgba(0, 0, 0, 0.4);
-    height: 50px;
+    background: rgba(0, 0, 0, 0.7);
+    height: 40px;
     text-align: center;
+    line-height: 15px;
+}
+
+#Author {
+    padding-top: 2px;
+    font-weight: bolder;
+}
+
+#Song {
+    font-size: 0.8em;
+}
+
+/* IMAGE CLASSESS*/
+.default {
+    background: black url("https://bezpiecznapodroz.org/wp-content/uploads/2017/06/Music-on-Blackboard-1240x660.jpg");
+}
+.duch {
+    background: black url("https://i.ytimg.com/vi/ne30xxETo3g/maxresdefault.jpg");
+}
+
+.despacito {
+    background: black url("https://images-na.ssl-images-amazon.com/images/I/61sw1j2fR%2BL._SS500.jpg");
+}
+
+.perfect {
+    background: black url("https://www.harp-school.com/wp-content/uploads/2017/12/ed-sheeran-perfect-thumb-16-9.jpg");
+}
+
+.poczatek {
+    background: black url("https://d-pt.ppstatic.pl/kadry/k/r/1/b1/61/5b05566ab7962_o,size,1068x623,q,71,h,a9b8c2.jpg");
+}
+
+.wolves {
+    background: black url("https://i.ytimg.com/vi/1L0beNrqGkM/maxresdefault.jpg");
 }
