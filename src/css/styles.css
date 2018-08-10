@@ -51,7 +51,6 @@ table {
 
 /* -----------AFTER STYLE RESET--------- */
 
-
 #MainContainer {
     height: 100vh;
     position: center;
@@ -111,6 +110,40 @@ table {
     height: 85%;
 }
 
+.PlaylistButtons {
+    padding-top: 4px;
+}
+
+#PlaylistBody {
+    padding: 0 15px 0 15px;
+}
+
+.divContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.SongTilesInfoTop {
+    display: flex;
+    flex-direction: row;
+    padding: 3px;
+}
+
+.SongTime {
+    font-size: 0.7em;
+    padding-right: 5px;
+}
+
+.SongAuthor {
+    font-size: 0.7em;
+}
+
+.SongName {
+    font-size: 0.9em;
+    font-weight: normal;
+    padding: 2.5px;
+}
+
 #PlayerOptions {
     background: rgba(96, 109, 130, 0.85);
     height: 40px;
@@ -162,7 +195,7 @@ table {
 
 /* BUTTONS */
 
-#hamburger {
+#Hamburger {
     height: 20px;
     width: 20px;
     border: 0;
@@ -182,7 +215,7 @@ table {
     background: url("../../images/chevron-left-solid.svg") no-repeat;
 }
 
-#repeat {
+#Repeat {
     height: 20px;
     width: 20px;
     margin: 0 5px 0 5px;
@@ -190,7 +223,7 @@ table {
     background: transparent url(../../images/redo-alt-solid.svg);
 }
 
-#shuffle {
+#Shuffle {
     height: 20px;
     width: 20px;
     margin: 0 5px 0 5px;
@@ -198,7 +231,7 @@ table {
     background: transparent url(../../images/random-solid.svg);
 }
 
-#redo {
+#Redo {
     height: 20px;
     width: 20px;
     margin: 0 5px 0 5px;
@@ -206,7 +239,7 @@ table {
     background: transparent url(../../images/sync-solid.svg);
 }
 
-#share {
+#Share {
     height: 20px;
     width: 20px;
     margin: 0 30px 0 0;
@@ -214,7 +247,7 @@ table {
     background: transparent url(../../images/share-alt-square-solid.svg);
 }
 
-#previous {
+#Previous {
     height: 20px;
     width: 20px;
     margin: 0 5px 0 5px;
@@ -222,7 +255,7 @@ table {
     background: transparent url(../../images/step-backward-solid.svg);
 }
 
-#next {
+#Next {
     height: 20px;
     width: 20px;
     margin: 0 5px 0 5px;
@@ -230,7 +263,7 @@ table {
     background: transparent url(../../images/step-forward-solid.svg);
 }
 
-#play {
+#Play {
     height: 20px;
     width: 20px;
     transform: scale(1.7);
@@ -239,10 +272,38 @@ table {
     background: transparent url(../../images/play-circle-regular.svg);
 }
 
-#like {
+#Like {
     height: 20px;
     width: 20px;
     margin: 0 0 0 30px;
     border: 0;
     background: transparent url(../../images/heart-solid.svg);
+}
+
+.PlaylistLike {
+    height: 12px;
+    width: 12px;
+    margin: 0 0 0 0;
+    border: 0;
+    background: transparent url(../../images/heart-solid.svg) no-repeat;
+}
+
+.PlaylistShare {
+    height: 12px;
+    width: 12px;
+    margin: 0 0 0 0;
+    border: 0;
+    background: transparent url(../../images/share-alt-square-solid.svg) no-repeat;
+}
+
+/* END OF BUTTONS */
+
+/* functionalities */
+
+.noDisplay {
+    display: none;
+}
+
+.display {
+    display: inline-block;
 }
