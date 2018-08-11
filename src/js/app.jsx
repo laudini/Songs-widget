@@ -28,8 +28,9 @@ class Container extends React.Component {
             song: ['Duch', 'Despacito', 'Perfect', 'Początek', 'Wolves'],
             singer: ['Kacper HTA ft. Arab', 'Luis Fonsi ft. Daddy Yankee', 'Ed Sheeran', 'Męskie granie', 'Selena Gomez ft. Marchmello'],
             time: ['4:57', '4:41', '4:40', '4:13', '3:17'],
+            likes: [0, 0, 0, 0, 0],
             currentSong: '',
-            currentSongId: 0,
+            currentSongId: null,
             currentArtist: 'Choose your song!',
             backgroundClasses: ['duch', 'despacito', 'perfect', 'poczatek', 'wolves'],
             activeSongBg: 'default',
@@ -112,6 +113,15 @@ class Container extends React.Component {
         }
     };
 
+    likeSong = () => {
+        let newArray = this.state.likes;
+        newArray[this.state.currentSongId] = 1;
+        this.setState({
+            likes : newArray
+        });
+        console.log(this.state.likes);
+    };
+
     render() {
         return (
             <div id="MainContainer">
@@ -121,7 +131,7 @@ class Container extends React.Component {
                         <PlayerInfo currentSong={this.state.currentSong} currentArtist={this.state.currentArtist}/>
                     </div>
                     <div id="PlayerBottom">
-                        <PlayerButtons nextSong={this.nextSong} prevSong={this.prevSong} pauseSong={this.pauseSong}
+                        <PlayerButtons likeSong={this.likeSong} nextSong={this.nextSong} prevSong={this.prevSong} pauseSong={this.pauseSong}
                                        playStatus={this.state.playStatus}/>
                     </div>
                 </Player>
@@ -202,7 +212,7 @@ class PlayerButtons extends React.Component {
                 <button onClick={this.props.prevSong} id="Previous"></button>
                 <button onClick={this.props.pauseSong} id={this.props.playStatus}></button>
                 <button onClick={this.props.nextSong} id="Next"></button>
-                <button id="Like"></button>
+                <button onClick={this.props.likeSong} id="Like"></button>
             </div>
         )
     }
