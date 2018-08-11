@@ -58,7 +58,7 @@ class Container extends React.Component {
             currentSong: this.state.song[e.currentTarget.id],
             currentArtist: this.state.singer[e.currentTarget.id],
             activeSongBg: this.state.backgroundClasses[e.currentTarget.id],
-            currentSongId: e.currentTarget.id
+            currentSongId: Number(e.currentTarget.id)
         });
     };
 
@@ -77,11 +77,18 @@ class Container extends React.Component {
     nextSong = () => {
         if (this.state.currentSongId < this.state.song.length - 1) {
             this.setState({
-                currentSongId: this.state.currentSongId + 1
-            })
+                currentSongId: this.state.currentSongId + 1,
+                currentSong: this.state.song[this.state.currentSongId + 1],
+                currentArtist: this.state.singer[this.state.currentSongId + 1],
+                activeSongBg: this.state.backgroundClasses[this.state.currentSongId +1]
+            });
+
         } else {
             this.setState({
-                currentSongId: 0
+                currentSongId: 0,
+                currentSong: this.state.song[0],
+                currentArtist: this.state.singer[0],
+                activeSongBg: this.state.backgroundClasses[0]
             })
         }
     };
@@ -89,11 +96,18 @@ class Container extends React.Component {
     prevSong = () => {
         if (this.state.currentSongId >= 1) {
             this.setState({
-                currentSongId: this.state.currentSongId - 1
+                currentSongId: this.state.currentSongId - 1,
+                currentSong: this.state.song[this.state.currentSongId - 1],
+                currentArtist: this.state.singer[this.state.currentSongId - 1],
+                activeSongBg: this.state.backgroundClasses[this.state.currentSongId - 1]
+
             })
         } else {
             this.setState({
-                currentSongId: this.state.song.length - 1
+                currentSongId: this.state.song.length - 1,
+                currentSong: this.state.song[this.state.song.length - 1],
+                currentArtist: this.state.singer[this.state.song.length - 1],
+                activeSongBg: this.state.backgroundClasses[this.state.song.length - 1]
             })
         }
     };
