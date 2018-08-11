@@ -112,7 +112,7 @@ class Container extends React.Component {
             })
         }
     };
-
+// DOPRACOWAC LIKES SONGS
     likeSong = () => {
         let newArray = this.state.likes;
         newArray[this.state.currentSongId] = 1;
