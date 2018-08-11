@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styles from '../css/styles.css';
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStroopwafel } from '@fortawesome/free-solid-svg-icons'
+import {library} from '@fortawesome/fontawesome-svg-core'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faStroopwafel} from '@fortawesome/free-solid-svg-icons'
 
 library.add(faStroopwafel);
-
 
 
 class App extends React.Component {
@@ -29,8 +28,9 @@ class Container extends React.Component {
             song: ['Duch', 'Despacito', 'Perfect', 'Początek', 'Wolves'],
             singer: ['Kacper HTA ft. Arab', 'Luis Fonsi ft. Daddy Yankee', 'Ed Sheeran', 'Męskie granie', 'Selena Gomez ft. Marchmello'],
             time: ['4:57', '4:41', '4:40', '4:13', '3:17'],
-            currentSong : '',
-            currentArtist : 'Choose your song!',
+            currentSong: '',
+            currentSongId: 0,
+            currentArtist: 'Choose your song!',
             backgroundClasses: ['duch', 'despacito', 'perfect', 'poczatek', 'wolves'],
             activeSongBg: 'default',
             activePlayer: 'activeplayer',
@@ -54,11 +54,12 @@ class Container extends React.Component {
     };
 
     changeSong = (e) => {
-      this.setState({
-          currentSong : this.state.song[e.currentTarget.id],
-          currentArtist: this.state.singer[e.currentTarget.id],
-          activeSongBg: this.state.backgroundClasses[e.currentTarget.id]
-      });
+        this.setState({
+            currentSong: this.state.song[e.currentTarget.id],
+            currentArtist: this.state.singer[e.currentTarget.id],
+            activeSongBg: this.state.backgroundClasses[e.currentTarget.id],
+            currentSongId: e.currentTarget.id
+        });
     };
 
     pauseSong = () => {
@@ -73,6 +74,30 @@ class Container extends React.Component {
         }
     };
 
+    nextSong = () => {
+        if (this.state.currentSongId < this.state.song.length - 1) {
+            this.setState({
+                currentSongId: this.state.currentSongId + 1
+            })
+        } else {
+            this.setState({
+                currentSongId: 0
+            })
+        }
+    };
+
+    prevSong = () => {
+        if (this.state.currentSongId >= 1) {
+            this.setState({
+                currentSongId: this.state.currentSongId - 1
+            })
+        } else {
+            this.setState({
+                currentSongId: this.state.song.length - 1
+            })
+        }
+    };
+
     render() {
         return (
             <div id="MainContainer">
@@ -82,7 +107,8 @@ class Container extends React.Component {
                         <PlayerInfo currentSong={this.state.currentSong} currentArtist={this.state.currentArtist}/>
                     </div>
                     <div id="PlayerBottom">
-                        <PlayerButtons pauseSong={this.pauseSong} playStatus={this.state.playStatus}/>
+                        <PlayerButtons nextSong={this.nextSong} prevSong={this.prevSong} pauseSong={this.pauseSong}
+                                       playStatus={this.state.playStatus}/>
                     </div>
                 </Player>
                 <Playlist activePlaylist={this.state.activePlaylist}>
@@ -90,7 +116,8 @@ class Container extends React.Component {
                         <PlaylistHeader changeToPlayer={this.changeToPlayer}/>
                     </div>
                     <div id="PlaylistBottom">
-                        <PlaylistBody changeToPlayer={this.changeToPlayer} songs={this.state.song} singers={this.state.singer} times={this.state.time} changeSong={this.changeSong}/>
+                        <PlaylistBody changeToPlayer={this.changeToPlayer} songs={this.state.song}
+                                      singers={this.state.singer} times={this.state.time} changeSong={this.changeSong}/>
                     </div>
                 </Playlist>
             </div>
@@ -158,9 +185,9 @@ class PlayerButtons extends React.Component {
         return (
             <div id="PlayerButtons">
                 <button id="Share"></button>
-                <button id="Previous"></button>
+                <button onClick={this.props.prevSong} id="Previous"></button>
                 <button onClick={this.props.pauseSong} id={this.props.playStatus}></button>
-                <button id="Next"></button>
+                <button onClick={this.props.nextSong} id="Next"></button>
                 <button id="Like"></button>
             </div>
         )
@@ -206,30 +233,30 @@ class PlaylistBody extends React.Component {
 
     render() {
 
-            let li = [];
+        let li = [];
 
-            for (let i = 0; i < this.props.songs.length; i++) {
+        for (let i = 0; i < this.props.songs.length; i++) {
 
-                li.push(<li className="SongTiles" id={i} onClick={ (e) => {
-                    this.props.changeSong(e);
-                    this.props.changeToPlayer();
-                }}>
-                    <div className="divContainer">
+            li.push(<li className="SongTiles" id={i} onClick={(e) => {
+                this.props.changeSong(e);
+                this.props.changeToPlayer();
+            }}>
+                <div className="divContainer">
                     <div className="FlexDiv">
-                    <div className="SongTilesInfoTop">
-                        <div className="SongTime">{this.props.times[i]} |</div>
-                        <div className="SongAuthor"> {this.props.singers[i]}</div>
-                    </div>
-                    <div className="SongName">{this.props.songs[i]}</div>
+                        <div className="SongTilesInfoTop">
+                            <div className="SongTime">{this.props.times[i]} |</div>
+                            <div className="SongAuthor"> {this.props.singers[i]}</div>
+                        </div>
+                        <div className="SongName">{this.props.songs[i]}</div>
                     </div>
                     <div className="PlaylistButtons">
                         <button className="PlaylistShare"></button>
                         <button className="PlaylistLike"></button>
                     </div>
-                    </div>
-                    <hr/>
-                </li>)
-            }
+                </div>
+                <hr/>
+            </li>)
+        }
 
         return (
             <div id="PlaylistBody">
