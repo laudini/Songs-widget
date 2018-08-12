@@ -5,8 +5,6 @@ import {library} from '@fortawesome/fontawesome-svg-core'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faStroopwafel} from '@fortawesome/free-solid-svg-icons'
 
-library.add(faStroopwafel);
-
 
 class App extends React.Component {
     constructor(props) {
@@ -144,12 +142,53 @@ class Container extends React.Component {
         }
     };
 
+    shuffle = () => {
+
+        let objects = [];
+        let shuffledSongs = [];
+        let shuffledSingers = [];
+        let shuffledTimes = [];
+        let shuffledLikes = [];
+        let shuffledBgs = [];
+
+        for (let i = 0; i < this.state.song.length; i++) {
+            objects[i] = {
+                song: this.state.song[i],
+                singer: this.state.singer[i],
+                time: this.state.time[i],
+                like: this.state.likes[i],
+                bgs: this.state.backgroundClasses[i]
+            }
+        }
+
+        objects.sort(function () {
+            return 0.5 - Math.random()
+        });
+
+        for (let j = 0; j < this.state.song.length; j++) {
+            shuffledSongs.push(objects[j].song);
+            shuffledSingers.push(objects[j].singer);
+            shuffledTimes.push(objects[j].time);
+            shuffledLikes.push(objects[j].like);
+            shuffledBgs.push(objects[j].bgs)
+        }
+
+        this.setState({
+            song: shuffledSongs,
+            singer: shuffledSingers,
+            time: shuffledTimes,
+            likes: shuffledLikes,
+            backgroundClasses: shuffledBgs
+        })
+
+    };
+
     render() {
         return (
             <div id="MainContainer">
                 <Player activePlayer={this.state.activePlayer}>
                     <div className={this.state.activeSongBg} id="PlayerTop">
-                        <PlayerOptions changeToPlaylist={this.changeToPlaylist}/>
+                        <PlayerOptions shuffle={this.shuffle} changeToPlaylist={this.changeToPlaylist}/>
                         <PlayerInfo currentSong={this.state.currentSong} currentArtist={this.state.currentArtist}/>
                     </div>
                     <div id="PlayerBottom">
@@ -198,7 +237,7 @@ class PlayerOptions extends React.Component {
         return (
             <div id="PlayerOptions">
                 <button id="Redo"></button>
-                <button id="Shuffle"></button>
+                <button onClick={this.props.shuffle} id="Shuffle"></button>
                 <button id="Repeat"></button>
                 <button onClick={this.props.changeToPlaylist} id="Hamburger"></button>
 

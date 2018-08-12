@@ -221,7 +221,7 @@ table {
     width: 20px;
     margin: 0 5px 0 5px;
     border: 0;
-    background: transparent url(../../images/redo-alt-solid.svg);
+    background: transparent url(../../images/redo-alt-solid.svg) no-repeat;
 }
 
 #Shuffle {
@@ -229,7 +229,7 @@ table {
     width: 20px;
     margin: 0 5px 0 5px;
     border: 0;
-    background: transparent url(../../images/random-solid.svg);
+    background: transparent url(../../images/random-solid.svg) no-repeat;
 }
 
 #Redo {
@@ -237,7 +237,7 @@ table {
     width: 20px;
     margin: 0 5px 0 5px;
     border: 0;
-    background: transparent url(../../images/sync-solid.svg);
+    background: transparent url(../../images/sync-solid.svg) no-repeat;
 }
 
 #Share {
@@ -245,7 +245,7 @@ table {
     width: 20px;
     margin: 0 30px 0 0;
     border: 0;
-    background: transparent url(../../images/share-alt-square-solid.svg);
+    background: transparent url(../../images/share-alt-square-solid.svg) no-repeat;
 }
 
 #Previous {
@@ -253,7 +253,7 @@ table {
     width: 20px;
     margin: 0 5px 0 5px;
     border: 0;
-    background: transparent url(../../images/step-backward-solid.svg);
+    background: transparent url(../../images/step-backward-solid.svg) no-repeat;
 }
 
 #Next {
@@ -261,7 +261,7 @@ table {
     width: 20px;
     margin: 0 5px 0 5px;
     border: 0;
-    background: transparent url(../../images/step-forward-solid.svg);
+    background: transparent url(../../images/step-forward-solid.svg) no-repeat;
 }
 
 #Play {
@@ -270,7 +270,7 @@ table {
     transform: scale(1.7);
     margin: 0 10px 0 10px;
     border: 0;
-    background: transparent url(../../images/play-solid.svg);
+    background: transparent url(../../images/play-solid.svg)  no-repeat;
 }
 
 #Stop {
@@ -279,7 +279,7 @@ table {
     transform: scale(1.7);
     margin: 0 10px 0 10px;
     border: 0;
-    background: transparent url(../../images/pause-solid.svg);
+    background: transparent url(../../images/pause-solid.svg) no-repeat;
 }
 
 #Like {
