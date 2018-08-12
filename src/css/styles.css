@@ -270,7 +270,7 @@ table {
     transform: scale(1.7);
     margin: 0 10px 0 10px;
     border: 0;
-    background: transparent url(../../images/play-circle-regular.svg);
+    background: transparent url(../../images/play-solid.svg);
 }
 
 #Stop {
@@ -279,7 +279,7 @@ table {
     transform: scale(1.7);
     margin: 0 10px 0 10px;
     border: 0;
-    background: transparent url(../../images/pause-circle-regular.svg);
+    background: transparent url(../../images/pause-solid.svg);
 }
 
 #Like {
@@ -287,18 +287,26 @@ table {
     width: 20px;
     margin: 0 0 0 30px;
     border: 0;
-    background: transparent url(../../images/heart-solid.svg);
+    background: transparent url(../../images/heart-regular.svg) no-repeat;
 }
 
 #Liked {
-    height: 30px;
-    width: 30px;
+    height: 20px;
+    width: 20px;
     margin: 0 0 0 30px;
     border: 0;
-    background: transparent url(../../images/heart-solid.svg);
+    background: transparent url(../../images/heart-solid.svg) no-repeat;
 }
 
 .PlaylistLike {
+    height: 16px;
+    width: 16px;
+    margin: 0 0 0 0;
+    border: 0;
+    background: transparent url(../../images/heart-regular.svg) no-repeat;
+}
+
+.PlaylistLiked {
     height: 16px;
     width: 16px;
     margin: 0 0 0 0;
