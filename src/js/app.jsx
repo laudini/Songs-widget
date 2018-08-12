@@ -81,7 +81,7 @@ class Container extends React.Component {
                 currentSongId: this.state.currentSongId + 1,
                 currentSong: this.state.song[this.state.currentSongId + 1],
                 currentArtist: this.state.singer[this.state.currentSongId + 1],
-                activeSongBg: this.state.backgroundClasses[this.state.currentSongId +1]
+                activeSongBg: this.state.backgroundClasses[this.state.currentSongId + 1]
             });
 
         } else {
@@ -112,12 +112,23 @@ class Container extends React.Component {
             })
         }
     };
-// DOPRACOWAC LIKES SONGS
+
     likeSong = () => {
         let newArray = this.state.likes;
         newArray[this.state.currentSongId] = 1;
         this.setState({
-            likes : newArray
+            likes: newArray
+        });
+        console.log(this.state.likes);
+        console.log(this.state.currentSongId);
+    };
+
+    playlistLikeSong = (e) => {
+        e.stopPropagation();
+        let newArray = this.state.likes;
+        newArray[e.currentTarget.parentElement.parentElement.parentElement.id] = 1;
+        this.setState({
+            likes: newArray
         });
         console.log(this.state.likes);
     };
@@ -131,8 +142,9 @@ class Container extends React.Component {
                         <PlayerInfo currentSong={this.state.currentSong} currentArtist={this.state.currentArtist}/>
                     </div>
                     <div id="PlayerBottom">
-                        <PlayerButtons likeSong={this.likeSong} nextSong={this.nextSong} prevSong={this.prevSong} pauseSong={this.pauseSong}
-                                       playStatus={this.state.playStatus}/>
+                        <PlayerButtons likeSong={this.likeSong} nextSong={this.nextSong} prevSong={this.prevSong}
+                                       pauseSong={this.pauseSong} playStatus={this.state.playStatus}
+                                       likes={this.state.likes} currentSongId={this.state.currentSongId}/>
                     </div>
                 </Player>
                 <Playlist activePlaylist={this.state.activePlaylist}>
@@ -140,7 +152,7 @@ class Container extends React.Component {
                         <PlaylistHeader changeToPlayer={this.changeToPlayer}/>
                     </div>
                     <div id="PlaylistBottom">
-                        <PlaylistBody changeToPlayer={this.changeToPlayer} songs={this.state.song}
+                        <PlaylistBody playlistLikeSong={this.playlistLikeSong} changeToPlayer={this.changeToPlayer} songs={this.state.song}
                                       singers={this.state.singer} times={this.state.time} changeSong={this.changeSong}/>
                     </div>
                 </Playlist>
@@ -206,15 +218,29 @@ class PlayerButtons extends React.Component {
     }
 
     render() {
-        return (
-            <div id="PlayerButtons">
-                <button id="Share"></button>
-                <button onClick={this.props.prevSong} id="Previous"></button>
-                <button onClick={this.props.pauseSong} id={this.props.playStatus}></button>
-                <button onClick={this.props.nextSong} id="Next"></button>
-                <button onClick={this.props.likeSong} id="Like"></button>
-            </div>
-        )
+        let liked = this.props.likes[this.props.currentSongId];
+        if (liked === 1) {
+            return (
+                <div id="PlayerButtons">
+                    <button id="Share"></button>
+                    <button onClick={this.props.prevSong} id="Previous"></button>
+                    <button onClick={this.props.pauseSong} id={this.props.playStatus}></button>
+                    <button onClick={this.props.nextSong} id="Next"></button>
+                    <button onClick={this.props.likeSong} id="Liked"></button>
+                </div>
+            )
+        } else {
+            return (
+                <div id="PlayerButtons">
+                    <button id="Share"></button>
+                    <button onClick={this.props.prevSong} id="Previous"></button>
+                    <button onClick={this.props.pauseSong} id={this.props.playStatus}></button>
+                    <button onClick={this.props.nextSong} id="Next"></button>
+                    <button onClick={this.props.likeSong} id="Like"></button>
+                </div>
+            )
+        }
+
     }
 
 }
@@ -275,7 +301,7 @@ class PlaylistBody extends React.Component {
                     </div>
                     <div className="PlaylistButtons">
                         <button className="PlaylistShare"></button>
-                        <button className="PlaylistLike"></button>
+                        <button onClick={(e) => {this.props.playlistLikeSong(e)}} className="PlaylistLike"></button>
                     </div>
                 </div>
                 <hr/>

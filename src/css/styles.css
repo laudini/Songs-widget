@@ -290,18 +290,26 @@ table {
     background: transparent url(../../images/heart-solid.svg);
 }
 
+#Liked {
+    height: 30px;
+    width: 30px;
+    margin: 0 0 0 30px;
+    border: 0;
+    background: transparent url(../../images/heart-solid.svg);
+}
+
 .PlaylistLike {
-    height: 12px;
-    width: 12px;
+    height: 16px;
+    width: 16px;
     margin: 0 0 0 0;
     border: 0;
     background: transparent url(../../images/heart-solid.svg) no-repeat;
 }
 
 .PlaylistShare {
-    height: 12px;
-    width: 12px;
-    margin: 0 0 0 0;
+    height: 16px;
+    width: 16px;
+    margin: 0 5px 0 0;
     border: 0;
     background: transparent url(../../images/share-alt-square-solid.svg) no-repeat;
 }
