@@ -178,7 +178,11 @@ class Container extends React.Component {
             singer: shuffledSingers,
             time: shuffledTimes,
             likes: shuffledLikes,
-            backgroundClasses: shuffledBgs
+            backgroundClasses: shuffledBgs,
+            currentSong: shuffledSongs[0],
+            currentSongId: 0,
+            currentArtist: shuffledSingers[0],
+            activeSongBg: shuffledBgs[0]
         })
 
     };
