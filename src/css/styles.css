@@ -60,10 +60,12 @@ table {
 #PlayerContainer {
     width: 100%;
     height: 100%;
+    background: lightgrey;
 }
+
 #PlayerTop {
     width: 100%;
-    height: 70%;
+    height: 80%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -73,7 +75,7 @@ table {
 
 #PlayerBottom {
     width: 100%;
-    height: 30%;
+    height: 20%;
     background: lightgrey;
 }
 
@@ -94,6 +96,7 @@ table {
     width: 100%;
     height: 15%;
 }
+
 #PlaylistHeader {
     padding-top: 10px;
     position: relative;
@@ -173,6 +176,7 @@ table {
 .default {
     background: black url("https://bezpiecznapodroz.org/wp-content/uploads/2017/06/Music-on-Blackboard-1240x660.jpg");
 }
+
 .duch {
     background: black url("https://i.ytimg.com/vi/ne30xxETo3g/maxresdefault.jpg");
 }
@@ -192,6 +196,7 @@ table {
 .wolves {
     background: black url("https://i.ytimg.com/vi/1L0beNrqGkM/maxresdefault.jpg");
 }
+
 /* END OF IMAGE CLASSES */
 
 /* BUTTONS */
@@ -267,16 +272,16 @@ table {
 #Play {
     height: 20px;
     width: 20px;
-    transform: scale(1.7);
+    transform: scale(1.5);
     margin: 0 10px 0 10px;
     border: 0;
-    background: transparent url(../../images/play-solid.svg)  no-repeat;
+    background: transparent url(../../images/play-solid.svg) no-repeat;
 }
 
 #Stop {
     height: 20px;
     width: 20px;
-    transform: scale(1.7);
+    transform: scale(1.5);
     margin: 0 10px 0 10px;
     border: 0;
     background: transparent url(../../images/pause-solid.svg) no-repeat;
@@ -340,4 +345,50 @@ table {
 
 .disactiveplaylist {
     display: none;
+}
+
+/* MEDIA QUERIES BIG SCREEN */
+
+@media only screen and (min-width: 750px) {
+    .activeplayer {
+        display: inline-block;
+    }
+
+    .disactiveplayer {
+        display: inline-block;
+    }
+
+    .activeplaylist {
+        display: inline-block;
+    }
+
+    .disactiveplaylist {
+        display: none;
+    }
+
+    #MainContainer {
+        height: 100vh;
+        position: center;
+        background: linear-gradient(to right, #7790ba, #6e88b2, #50607a 45%, #50607a 55%, #6e88b2, #7790ba);
+        display: flex;
+        justify-content: center;
+    }
+
+    #PlayerContainer {
+        position: relative;
+        margin: 50px 0 0 0;
+        width: 350px;
+        height: 500px;
+        border-radius: 7%;
+    }
+
+    #PlaylistContainer {
+        position: relative;
+        margin: 50px 0 0 30px;
+        width: 350px;
+        height: 500px;
+        background: lightgrey;
+        border-radius: 7%;
+    }
+
 }
