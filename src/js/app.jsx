@@ -26,6 +26,7 @@ class Container extends React.Component {
             song: ['Duch', 'Despacito', 'Perfect', 'Początek', 'Wolves'],
             singer: ['Kacper HTA ft. Arab', 'Luis Fonsi ft. Daddy Yankee', 'Ed Sheeran', 'Męskie granie', 'Selena Gomez ft. Marchmello'],
             time: ['4:57', '4:41', '4:40', '4:13', '3:17'],
+            timeInSec: ['297', '281', '280', '253', '197'],
             likes: [0, 0, 0, 0, 0],
             currentSong: '',
             currentSongId: null,
@@ -34,7 +35,8 @@ class Container extends React.Component {
             activeSongBg: 'default',
             activePlayer: 'activeplayer',
             activePlaylist: 'disactiveplaylist',
-            playStatus: 'Play'
+            playStatus: 'Play',
+            timeElapsed: 0
         }
     }
 
@@ -66,6 +68,7 @@ class Container extends React.Component {
             this.setState({
                 playStatus: 'Stop'
             })
+
         } else {
             this.setState({
                 playStatus: 'Play'
@@ -142,6 +145,19 @@ class Container extends React.Component {
         }
     };
 
+    startSong = () => {
+        console.log(Number(this.state.timeInSec[this.state.currentSongId]) * 1000);
+        let intervalId = setInterval(() => {
+            this.setState({
+                timeElapsed : this.state.timeElapsed + 1
+            });
+            if (this.state.timeElapsed === Number(this.state.timeInSec[this.state.currentSongId])) {
+                clearInterval(intervalId);
+            }
+            document.getElementById('seekbar').value = 1 / Number(this.state.timeInSec[this.state.currentSongId]) * this.state.timeElapsed;
+        }, 1000);
+    };
+
     shuffle = () => {
 
         let objects = [];
@@ -150,6 +166,7 @@ class Container extends React.Component {
         let shuffledTimes = [];
         let shuffledLikes = [];
         let shuffledBgs = [];
+        let shuffledTIS = [];
 
         for (let i = 0; i < this.state.song.length; i++) {
             objects[i] = {
@@ -157,7 +174,8 @@ class Container extends React.Component {
                 singer: this.state.singer[i],
                 time: this.state.time[i],
                 like: this.state.likes[i],
-                bgs: this.state.backgroundClasses[i]
+                bgs: this.state.backgroundClasses[i],
+                tis: this.state.timeInSec[i]
             }
         }
 
@@ -170,7 +188,8 @@ class Container extends React.Component {
             shuffledSingers.push(objects[j].singer);
             shuffledTimes.push(objects[j].time);
             shuffledLikes.push(objects[j].like);
-            shuffledBgs.push(objects[j].bgs)
+            shuffledBgs.push(objects[j].bgs);
+            shuffledTIS.push(objects[j].tis);
         }
 
         this.setState({
@@ -182,7 +201,8 @@ class Container extends React.Component {
             currentSong: shuffledSongs[0],
             currentSongId: 0,
             currentArtist: shuffledSingers[0],
-            activeSongBg: shuffledBgs[0]
+            activeSongBg: shuffledBgs[0],
+            timeInSec: shuffledTIS
         })
 
     };
@@ -196,7 +216,8 @@ class Container extends React.Component {
                         <PlayerInfo currentSong={this.state.currentSong} currentArtist={this.state.currentArtist}/>
                     </div>
                     <div id="PlayerBottom">
-                        <PlayerButtons likeSong={this.likeSong} nextSong={this.nextSong} prevSong={this.prevSong}
+                        <PlayerButtons startSong={this.startSong} likeSong={this.likeSong} nextSong={this.nextSong}
+                                       prevSong={this.prevSong}
                                        pauseSong={this.pauseSong} playStatus={this.state.playStatus}
                                        likes={this.state.likes} currentSongId={this.state.currentSongId}/>
                     </div>
@@ -277,22 +298,40 @@ class PlayerButtons extends React.Component {
         let liked = this.props.likes[this.props.currentSongId];
         if (liked === 1) {
             return (
-                <div id="PlayerButtons">
-                    <button id="Share"></button>
-                    <button onClick={this.props.prevSong} id="Previous"></button>
-                    <button onClick={this.props.pauseSong} id={this.props.playStatus}></button>
-                    <button onClick={this.props.nextSong} id="Next"></button>
-                    <button onClick={this.props.likeSong} id="Liked"></button>
+                <div>
+                    <div>
+                        <audio src="https://www.youtube.com/watch?v=Ul1q622VWQg" id="player"></audio>
+                        <progress id="seekbar" value="0" max="1"></progress>
+                    </div>
+                    <div id="PlayerButtons">
+                        <button id="Share"></button>
+                        <button onClick={this.props.prevSong} id="Previous"></button>
+                        <button onClick={() => {
+                            this.props.pauseSong();
+                            this.props.startSong();
+                        }} id={this.props.playStatus}></button>
+                        <button onClick={this.props.nextSong} id="Next"></button>
+                        <button onClick={this.props.likeSong} id="Liked"></button>
+                    </div>
                 </div>
             )
         } else {
             return (
-                <div id="PlayerButtons">
-                    <button id="Share"></button>
-                    <button onClick={this.props.prevSong} id="Previous"></button>
-                    <button onClick={this.props.pauseSong} id={this.props.playStatus}></button>
-                    <button onClick={this.props.nextSong} id="Next"></button>
-                    <button onClick={this.props.likeSong} id="Like"></button>
+                <div>
+                    <div id="SongProgress">
+                        <progress id="seekbar" value="0" max="1"></progress>
+                    </div>
+                    <div id="PlayerButtons">
+                        <button id="Share"></button>
+                        <button onClick={this.props.prevSong} id="Previous"></button>
+                        <button onClick={() => {
+                            this.props.pauseSong();
+                            this.props.startSong();
+                        }
+                        } id={this.props.playStatus}></button>
+                        <button onClick={this.props.nextSong} id="Next"></button>
+                        <button onClick={this.props.likeSong} id="Like"></button>
+                    </div>
                 </div>
             )
         }
