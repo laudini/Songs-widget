@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import styles from '../css/styles.css';
-import {library} from '@fortawesome/fontawesome-svg-core'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faStroopwafel} from '@fortawesome/free-solid-svg-icons'
 
 
 class App extends React.Component {
@@ -39,20 +36,6 @@ class Container extends React.Component {
             timeElapsed: 0
         };
     }
-    componentDidMount = () => {
-        let intervalId = setInterval(() => {
-            this.setState({
-                timeElapsed: this.state.timeElapsed + 1
-            });
-            if (this.state.timeElapsed === Number(this.state.timeInSec[this.state.currentSongId])) {
-                clearInterval(intervalId);
-            }
-            document.getElementById('seekbar').value = 1 / Number(this.state.timeInSec[this.state.currentSongId]) * this.state.timeElapsed;
-        }, 1000);
-        this.setState({
-            intervalId : intervalId
-        })
-    };
 
     changeToPlaylist = () => {
         this.setState({
@@ -163,16 +146,18 @@ class Container extends React.Component {
         if (this.state.playStatus != 'Play') {
 
         } else {
-            let intervalId = setInterval(() => {
+
+            const intervalId = setInterval(() => {
                 this.setState({
                     timeElapsed: this.state.timeElapsed + 1
                 });
-                if (this.state.timeElapsed === Number(this.state.timeInSec[this.state.currentSongId])) {
+                if(this.state.timeElapsed === Number(this.state.timeInSec[this.state.currentSongId])) {
                     clearInterval(intervalId);
                 }
                 document.getElementById('seekbar').value = 1 / Number(this.state.timeInSec[this.state.currentSongId]) * this.state.timeElapsed;
             }, 1000);
         }
+
     };
 
     shuffle = () => {
@@ -236,7 +221,8 @@ class Container extends React.Component {
                         <PlayerButtons startSong={this.startSong} likeSong={this.likeSong} nextSong={this.nextSong}
                                        prevSong={this.prevSong}
                                        pauseSong={this.pauseSong} playStatus={this.state.playStatus}
-                                       likes={this.state.likes} currentSongId={this.state.currentSongId}/>
+                                       likes={this.state.likes}
+                                       currentSongId={this.state.currentSongId}>{this.props.children}</PlayerButtons>
                     </div>
                 </Player>
                 <Playlist activePlaylist={this.state.activePlaylist}>
@@ -311,24 +297,22 @@ class PlayerButtons extends React.Component {
     }
 
     render() {
-        console.log(this.props.likes);
         let liked = this.props.likes[this.props.currentSongId];
         if (liked === 1) {
             return (
                 <div>
                     <div>
-                        <audio src="https://www.youtube.com/watch?v=Ul1q622VWQg" id="player"></audio>
-                        <progress id="seekbar" value="0" max="1"></progress>
+                        <Progress startSong={this.startSong}/>
                     </div>
                     <div id="PlayerButtons">
-                        <button id="Share"><span/></button>
-                        <button onClick={this.props.prevSong} id="Previous"><span/></button>
+                        <button id="Share"></button>
+                        <button onClick={this.props.prevSong} id="Previous"></button>
                         <button onClick={() => {
                             this.props.pauseSong();
                             this.props.startSong();
-                        }} id={this.props.playStatus}><span/></button>
-                        <button onClick={this.props.nextSong} id="Next"><span/></button>
-                        <button onClick={this.props.likeSong} id="Liked"><span/></button>
+                        }} id={this.props.playStatus}></button>
+                        <button onClick={this.props.nextSong} id="Next"></button>
+                        <button onClick={this.props.likeSong} id="Liked"></button>
                     </div>
                 </div>
             )
@@ -336,7 +320,7 @@ class PlayerButtons extends React.Component {
             return (
                 <div>
                     <div id="SongProgress">
-                        <progress id="seekbar" value="0" max="1"></progress>
+                        <Progress startSong={this.startSong}/>
                     </div>
                     <div id="PlayerButtons">
                         <button id="Share"></button>
@@ -353,6 +337,19 @@ class PlayerButtons extends React.Component {
             )
         }
 
+    }
+
+}
+
+class Progress extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        return (
+            <progress id="seekbar" value="0" max="1"></progress>
+        )
     }
 
 }

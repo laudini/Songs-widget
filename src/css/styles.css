@@ -51,6 +51,15 @@ table {
 
 /* -----------AFTER STYLE RESET--------- */
 
+@font-face {
+    font-family: 'Signika', sans-serif;
+    src: url('https://fonts.googleapis.com/css?family=Signika');
+}
+
+body {
+    font-family: 'Signika', sans-serif;
+}
+
 #MainContainer {
     height: 100vh;
     position: center;
