@@ -37,8 +37,22 @@ class Container extends React.Component {
             activePlaylist: 'disactiveplaylist',
             playStatus: 'Play',
             timeElapsed: 0
-        }
+        };
     }
+    componentDidMount = () => {
+        let intervalId = setInterval(() => {
+            this.setState({
+                timeElapsed: this.state.timeElapsed + 1
+            });
+            if (this.state.timeElapsed === Number(this.state.timeInSec[this.state.currentSongId])) {
+                clearInterval(intervalId);
+            }
+            document.getElementById('seekbar').value = 1 / Number(this.state.timeInSec[this.state.currentSongId]) * this.state.timeElapsed;
+        }, 1000);
+        this.setState({
+            intervalId : intervalId
+        })
+    };
 
     changeToPlaylist = () => {
         this.setState({
@@ -146,16 +160,19 @@ class Container extends React.Component {
     };
 
     startSong = () => {
-        console.log(Number(this.state.timeInSec[this.state.currentSongId]) * 1000);
-        let intervalId = setInterval(() => {
-            this.setState({
-                timeElapsed : this.state.timeElapsed + 1
-            });
-            if (this.state.timeElapsed === Number(this.state.timeInSec[this.state.currentSongId])) {
-                clearInterval(intervalId);
-            }
-            document.getElementById('seekbar').value = 1 / Number(this.state.timeInSec[this.state.currentSongId]) * this.state.timeElapsed;
-        }, 1000);
+        if (this.state.playStatus != 'Play') {
+
+        } else {
+            let intervalId = setInterval(() => {
+                this.setState({
+                    timeElapsed: this.state.timeElapsed + 1
+                });
+                if (this.state.timeElapsed === Number(this.state.timeInSec[this.state.currentSongId])) {
+                    clearInterval(intervalId);
+                }
+                document.getElementById('seekbar').value = 1 / Number(this.state.timeInSec[this.state.currentSongId]) * this.state.timeElapsed;
+            }, 1000);
+        }
     };
 
     shuffle = () => {
@@ -304,14 +321,14 @@ class PlayerButtons extends React.Component {
                         <progress id="seekbar" value="0" max="1"></progress>
                     </div>
                     <div id="PlayerButtons">
-                        <button id="Share"></button>
-                        <button onClick={this.props.prevSong} id="Previous"></button>
+                        <button id="Share"><span/></button>
+                        <button onClick={this.props.prevSong} id="Previous"><span/></button>
                         <button onClick={() => {
                             this.props.pauseSong();
                             this.props.startSong();
-                        }} id={this.props.playStatus}></button>
-                        <button onClick={this.props.nextSong} id="Next"></button>
-                        <button onClick={this.props.likeSong} id="Liked"></button>
+                        }} id={this.props.playStatus}><span/></button>
+                        <button onClick={this.props.nextSong} id="Next"><span/></button>
+                        <button onClick={this.props.likeSong} id="Liked"><span/></button>
                     </div>
                 </div>
             )

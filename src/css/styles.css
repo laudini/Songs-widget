@@ -81,9 +81,11 @@ table {
 
 #PlayerButtons {
     height: 100%;
+    padding-top: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: visible;
 }
 
 #PlaylistContainer {
@@ -98,7 +100,7 @@ table {
 }
 
 #PlaylistHeader {
-    padding-top: 10px;
+    padding-top: 12px;
     position: relative;
 }
 
@@ -216,8 +218,8 @@ table {
     width: 20px;
     border: 0;
     position: absolute;
-    left: 15px;
-    top: 10px;
+    left: 25px;
+    top: 12px;
     background: url("../../images/chevron-left-solid.svg") no-repeat;
 }
 
@@ -246,11 +248,12 @@ table {
 }
 
 #Share {
-    height: 20px;
-    width: 20px;
-    margin: 0 30px 0 0;
+    height: 18px;
+    width: 18px;
+    margin: 0 50px 0 0;
     border: 0;
-    background: transparent url(../../images/share-alt-square-solid.svg) no-repeat;
+    background: transparent url(../../images/share-alt-solid.svg) no-repeat;
+
 }
 
 #Previous {
@@ -290,9 +293,9 @@ table {
 #Like {
     height: 20px;
     width: 20px;
-    margin: 0 0 0 30px;
+    margin: 0 0 0 50px;
     border: 0;
-    background: transparent url(../../images/heart-regular.svg) no-repeat;
+    background: url(../../images/heart-regular.svg) no-repeat;
 }
 
 #Liked {
