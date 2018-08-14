@@ -33,7 +33,8 @@ class Container extends React.Component {
             activePlayer: 'activeplayer',
             activePlaylist: 'disactiveplaylist',
             playStatus: 'Play',
-            timeElapsed: 0
+            timeElapsed: 0,
+            intervalId: undefined
         };
     }
 
@@ -52,12 +53,22 @@ class Container extends React.Component {
     };
 
     changeSong = (e) => {
+        document.getElementById('seekbar').value = 0;
+        clearInterval(this.state.intervalId);
         this.setState({
             currentSong: this.state.song[e.currentTarget.id],
             currentArtist: this.state.singer[e.currentTarget.id],
             activeSongBg: this.state.backgroundClasses[e.currentTarget.id],
-            currentSongId: Number(e.currentTarget.id)
+            currentSongId: Number(e.currentTarget.id),
+            timeElapsed: 0
         });
+        if (this.state.playStatus === "Play") {
+            this.pauseSong();
+            this.startSong();
+        } else {
+            this.startSong('me')
+        }
+
     };
 
     pauseSong = () => {
@@ -79,16 +90,21 @@ class Container extends React.Component {
                 currentSongId: this.state.currentSongId + 1,
                 currentSong: this.state.song[this.state.currentSongId + 1],
                 currentArtist: this.state.singer[this.state.currentSongId + 1],
-                activeSongBg: this.state.backgroundClasses[this.state.currentSongId + 1]
+                activeSongBg: this.state.backgroundClasses[this.state.currentSongId + 1],
+                timeElapsed: 0
             });
-
+            document.getElementById('seekbar').value = 0;
+            clearInterval(this.state.intervalId);
         } else {
             this.setState({
                 currentSongId: 0,
                 currentSong: this.state.song[0],
                 currentArtist: this.state.singer[0],
-                activeSongBg: this.state.backgroundClasses[0]
-            })
+                activeSongBg: this.state.backgroundClasses[0],
+                timeElapsed: 0
+            });
+            document.getElementById('seekbar').value = 0;
+            clearInterval(this.state.intervalId);
         }
     };
 
@@ -98,16 +114,21 @@ class Container extends React.Component {
                 currentSongId: this.state.currentSongId - 1,
                 currentSong: this.state.song[this.state.currentSongId - 1],
                 currentArtist: this.state.singer[this.state.currentSongId - 1],
-                activeSongBg: this.state.backgroundClasses[this.state.currentSongId - 1]
-
-            })
+                activeSongBg: this.state.backgroundClasses[this.state.currentSongId - 1],
+                timeElapsed: 0
+            });
+            document.getElementById('seekbar').value = 0;
+            clearInterval(this.state.intervalId);
         } else {
             this.setState({
                 currentSongId: this.state.song.length - 1,
                 currentSong: this.state.song[this.state.song.length - 1],
                 currentArtist: this.state.singer[this.state.song.length - 1],
-                activeSongBg: this.state.backgroundClasses[this.state.song.length - 1]
-            })
+                activeSongBg: this.state.backgroundClasses[this.state.song.length - 1],
+                timeElapsed: 0
+            });
+            document.getElementById('seekbar').value = 0;
+            clearInterval(this.state.intervalId);
         }
     };
 
@@ -142,26 +163,47 @@ class Container extends React.Component {
         }
     };
 
-    startSong = () => {
-        if (this.state.playStatus != 'Play') {
+    seekbarChange = () => {
 
-        } else {
+        this.setState({
+            timeElapsed: this.state.timeElapsed + 1
+        });
+        if (this.state.timeElapsed === Number(this.state.timeInSec[this.state.currentSongId])) {
+            clearInterval(intervalId);
+        }
+        document.getElementById('seekbar').value = 1 / Number(this.state.timeInSec[this.state.currentSongId]) * this.state.timeElapsed;
 
-            const intervalId = setInterval(() => {
-                this.setState({
-                    timeElapsed: this.state.timeElapsed + 1
-                });
-                if(this.state.timeElapsed === Number(this.state.timeInSec[this.state.currentSongId])) {
-                    clearInterval(intervalId);
-                }
-                document.getElementById('seekbar').value = 1 / Number(this.state.timeInSec[this.state.currentSongId]) * this.state.timeElapsed;
+    };
+
+    startSong = (e) => {
+        if (e === 'me') {
+            console.log('changing song');
+            clearInterval(this.state.intervalId);
+            let intervalId = setInterval(() => {
+                this.seekbarChange()
             }, 1000);
+            this.setState({
+                intervalId: intervalId
+            });
+        } else if (this.state.playStatus != 'Play') {
+            clearInterval(this.state.intervalId);
+            console.log('pausing song');
+        } else {
+            console.log('normal starting song');
+            let intervalId = setInterval(() => {
+                this.seekbarChange()
+            }, 1000);
+            this.setState({
+                intervalId: intervalId
+            });
+
         }
 
     };
 
     shuffle = () => {
-
+        clearInterval(this.state.intervalId);
+        document.getElementById('seekbar').value = 0;
         let objects = [];
         let shuffledSongs = [];
         let shuffledSingers = [];
