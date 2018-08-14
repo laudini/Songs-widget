@@ -265,11 +265,12 @@ class Container extends React.Component {
             timeInSec: shuffledTIS,
             timeElapsed: 0
         });
-    this.startSong('me');
-    if (this.state.playStatus === "Play") {
-        this.pauseSong();
-    }
+        this.startSong('me');
+        if (this.state.playStatus === "Play") {
+            this.pauseSong();
+        }
     };
+
 
     render() {
         return (
@@ -485,7 +486,7 @@ class PlaylistBody extends React.Component {
                         }} className={heart}></button>
                     </div>
                 </div>
-                <hr/>
+                <hr id="hr"/>
             </li>)
         }
 
