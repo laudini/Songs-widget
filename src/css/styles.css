@@ -185,7 +185,9 @@ body {
 
 /* IMAGE CLASSES */
 .default {
-    background: black url("https://bezpiecznapodroz.org/wp-content/uploads/2017/06/Music-on-Blackboard-1240x660.jpg");
+    background-image: url("https://www.androidcentral.com/sites/androidcentral.com/files/styles/xlarge/public/article_images/2015/01/podcast-event.jpg?itok=zsMimlTM");
+    background-position: center;
+    background-size: contain;
 }
 
 .duch {
@@ -304,7 +306,7 @@ body {
     width: 20px;
     margin: 0 0 0 50px;
     border: 0;
-    background: url(../../images/heart-regular.svg) no-repeat;
+    background: transparent url(../../images/heart-regular.svg) no-repeat;
 }
 
 #Liked {

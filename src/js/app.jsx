@@ -95,6 +95,10 @@ class Container extends React.Component {
             });
             document.getElementById('seekbar').value = 0;
             clearInterval(this.state.intervalId);
+            if (this.state.playStatus === "Play") {
+                this.pauseSong();
+            }
+            this.startSong('me');
         } else {
             this.setState({
                 currentSongId: 0,
@@ -105,6 +109,10 @@ class Container extends React.Component {
             });
             document.getElementById('seekbar').value = 0;
             clearInterval(this.state.intervalId);
+            if (this.state.playStatus === "Play") {
+                this.pauseSong();
+            }
+            this.startSong('me');
         }
     };
 
@@ -119,6 +127,12 @@ class Container extends React.Component {
             });
             document.getElementById('seekbar').value = 0;
             clearInterval(this.state.intervalId);
+            if (this.state.playStatus === "Play") {
+                this.pauseSong();
+            }
+
+            this.startSong('me');
+
         } else {
             this.setState({
                 currentSongId: this.state.song.length - 1,
@@ -129,6 +143,10 @@ class Container extends React.Component {
             });
             document.getElementById('seekbar').value = 0;
             clearInterval(this.state.intervalId);
+            if (this.state.playStatus === "Play") {
+                this.pauseSong();
+            }
+            this.startSong('me');
         }
     };
 
@@ -177,7 +195,6 @@ class Container extends React.Component {
 
     startSong = (e) => {
         if (e === 'me') {
-            console.log('changing song');
             clearInterval(this.state.intervalId);
             let intervalId = setInterval(() => {
                 this.seekbarChange()
@@ -187,9 +204,8 @@ class Container extends React.Component {
             });
         } else if (this.state.playStatus != 'Play') {
             clearInterval(this.state.intervalId);
-            console.log('pausing song');
+
         } else {
-            console.log('normal starting song');
             let intervalId = setInterval(() => {
                 this.seekbarChange()
             }, 1000);
@@ -246,9 +262,13 @@ class Container extends React.Component {
             currentSongId: 0,
             currentArtist: shuffledSingers[0],
             activeSongBg: shuffledBgs[0],
-            timeInSec: shuffledTIS
-        })
-
+            timeInSec: shuffledTIS,
+            timeElapsed: 0
+        });
+    this.startSong('me');
+    if (this.state.playStatus === "Play") {
+        this.pauseSong();
+    }
     };
 
     render() {
