@@ -35,7 +35,7 @@ https://laudini.github.io/Songs-widget/dist/
 
 ## Authors
 
-* ** Krzemiński Kamil **
+* Krzemiński Kamil
 
 
 ## Acknowledgments
